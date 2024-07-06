@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome to Colombo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href='https://fonts.googleapis.com/css?family=Chilanka:300,400,500,600,900' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700' rel='stylesheet'>
+
+    <script type="text/javascript" defer>
+      // variables
+      var slides = document.getElementsByClassName('slide');
+      var toggleBtn = document.getElementsByClassName('toggleBtn');
+      var currentSlide = 0;
+      var slideInterval = setInterval(startSlideShow, 3000);
+
+      //default play
+      var paused = false;
+
+      //start slideshow
+      function startSlideShow(){
+      	slides[currentSlide].className = 'slide';
+      	currentSlide = (currentSlide+1)%slides.length;
+      	slides[currentSlide].className = 'slide showing';
+      }
+
+      //go to previous slide and pause
+      function prevSlide(){
+        pauseSlideshow(toggleBtn);
+        document.getElementById('toggleBtn').innerHTML = "Play";
+        if(currentSlide == 0){
+          slides[currentSlide].className = 'slide';
+        	currentSlide = slides.length -1;
+        	slides[currentSlide].className = 'slide showing';
+        }else{
+        	slides[currentSlide].className = 'slide';
+        	currentSlide = (currentSlide-1)%slides.length;
+        	slides[currentSlide].className = 'slide showing';
+        }
+      }
+
+      //go to next slide and pause
+      function nextSlide(){
+        pauseSlideshow(toggleBtn);
+        document.getElementById('toggleBtn').innerHTML = "Play";
+      	slides[currentSlide].className = 'slide';
+      	currentSlide = (currentSlide+1)%slides.length;
+      	slides[currentSlide].className = 'slide showing';
+      }
+
+      //pause slideshow
+      function pauseSlideshow(el){
+      	el.innerHTML = 'Play';
+      	paused = true;
+      	clearInterval(slideInterval);
+      }
+
+      //resume slideshow
+      function playSlideshow(el){
+      	el.innerHTML = 'Pause';
+      	paused = false;
+      	slideInterval = setInterval(startSlideShow, 3000);
+      }
+
+      //toggle pause/play
+      function toggle(el){
+      	if(paused){ playSlideshow(el); }
+      	else{ pauseSlideshow(el); }
+      }
+
+      //on mouse over slide, pause slideshow
+      function pause(){
+        if(!paused){
+          pasued = true;
+          clearInterval(slideInterval)
+        }
+      }
+
+      //on mouse outside slide, resume slideshow
+      function play(){
+        if(paused){
+          pasued = true;
+          clearInterval(slideInterval)
+        }else{
+          paused = false;
+          slideInterval = setInterval(startSlideShow, 3000)
+        }
+      }
+    </script>
+    <script type="text/javascript" src="js\hidenav.js"></script>
+  </head>
+  <body>
+    <div class="grid_main">
+
+      <div class="header" id="header">
+        <section id="navigation">
+            <ul class="nav">
+              <li class="nav"><a class="navActive" href="index.html">Home</a></li>
+              <li class="nav"><a class="nav" href="touristsites\visitor\index.php">Book a Visit</a></li>
+              <li class="nav"><a class="nav" href="touristsites\visitor\bookings.php">View Bookings</a></li>
+              <li class="nav" style="float:right"><a class="nav" href="touristsites\admin\manage.php">Admin</a></li>
+            </ul>
+            <div align="center" class="navborder"></div>
+        </section>
+      </div>
+
+      <div class="intro">
+        Welcome to
+        <span class="city">Colombo
+        </span>
+      </div>
+
+      <div class="slideshow">
+        <div class="slides">
+        	<div class="slide showing" onmouseover="pause()" onmouseout="play()">
+            <embed type="image/jpg" src="images/07_beddagana_wetland_park.webp" alt="07_beddagana_wetland_park">
+              <h2>Beddagana Wetland Park</h2>
+              <p class="feature">A very recent addition to the list of well-known locations in
+                Colombo is Beddagana Wetland Park.
+
+                In addition to improving the quality of life for the locals,
+                the Sri Lankan government built it to safeguard the area from flooding.</p>
+         </div>
+
+        	<div class="slide" onmouseover="pause()" onmouseout="play()">
+            <embed type="image/jpg" src="images\04_colombo_port_maritime_museum.jpg" alt="04_colombo_port_maritime_museum">
+            <h2>Colombo Port Maritime Museum</h2>
+            <p class="feature">The Colombo Port Maritime Museum, which is next to the Colombo
+              Port, was constructed in 1676 inside a former Dutch prison.</p>
+            </div>
+
+        	<div class="slide" onmouseover="pause()" onmouseout="play()">
+            <embed type="image/jpg" src="images/03_gangaramaya.jpg" alt="03_gangaramaya">
+            <h2>Gangaramaya Temple</h2>
+            <p class="feature">The Gangaramaya Buddhist Temple, one of Colombo's most important
+              places of worship, is just a short stroll from the picturesque
+              Lake Beira.</p>
+          </div>
+
+          <div class="slide" onmouseover="pause()" onmouseout="play()">
+            <embed type="image/jpg" src="images/06_paradise_road.jpg" alt="06_paradise_road">
+            <h2>Paradise Road</h2>
+            <p class="feature">Paradise Road is a charming little shop that Udayshanth Fernando
+              opened in 1987. It sells high-quality contemporary clothes, the
+              most of which is made in the area.</p>
+          </div>
+
+          <div class="slide" onmouseover="pause()" onmouseout="play()">
+            <embed type="image/jpg" src="images/09_arugam_bay_beach.jpg" alt="09_arugam_bay_beach">
+            <h2>Arugam Bay Beach</h2>
+            <p class="feature">Arugam Bay Beach is the spot to go if you want to take a revitalising
+              diversion away from the city and into the wilderness.</p>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button type="button" class="prev" onclick="prevSlide()">Previous</button>
+          <button type="button" class="toggleButton" id="toggleBtn" onclick="toggle(this)">Pause</button>
+          <button type="button" class="next" onclick="nextSlide()">Next</button>
+        </div>
+      </div>
+      <div class="places">
+        <hr class="navborder">
+        <h2>Colombo Essentials</h2>
+        <div class="place_grid">
+
+          <div class="place_item">
+            <img src="images\01_galle_face_green.jpg" alt="1">
+            <div class="place_title">
+              Galle Face Green
+            </div>
+            <div class="place_text">
+              Galle Face Green, a lovely expanse of open space tucked between the
+              busy Galle Boulevard and the Indian Ocean, is one of Colombo's most
+              well-liked picnic spots.
+            </div>
+          </div>
+
+          <div class="place_item">
+            <img src="images\02_mount_lavinia.jpg" alt="2">
+            <div class="place_title">
+              Mount Lavinia
+            </div>
+            <div class="place_text">
+              The nicest ocean view rooms at Mount Lavinia, probably Colombo's
+                most popular heritage hotel, are virtually always reserved, unless
+                you arrive early.
+            </div>
+          </div>
+
+          <div class="place_item">
+            <img src="images\03_gangaramaya.jpg" alt="3">
+            <div class="place_title">
+              Gangaramaya Temple
+            </div>
+            <div class="place_text">
+              The Gangaramaya Buddhist Temple, one of Colombo's most important
+                places of worship, is just a short stroll from the picturesque
+                Lake Beira.
+            </div>
+          </div>
+
+          <div class="place_item">
+            <img src="images\04_colombo_port_maritime_museum.jpg" alt="4">
+            <div class="place_title">
+              Colombo Port Maritime Museum
+            </div>
+            <div class="place_text">
+              The Colombo Port Maritime Museum, which is next to the Colombo
+                Port, was constructed in 1676 inside a former Dutch prison.
+                The museum, which has undergone one renovation, houses numerous
+                significant historical artefacts, things, and data connected to
+                Sri Lanka's ports.
+            </div>
+          </div>
+
+          <div class="place_item">
+            <img src="images\05_attidiya_bird_santuary.jpg" alt="5">
+            <div class="place_title">
+              Attidiya Bird Sanctuary
+            </div>
+            <div class="place_text">
+              The Attidiya Bird Sanctuary, one of the most relaxing places to
+                visit in Colombo, is home to over 50 different avian species as
+                well as a variety of insects and butterfly species.
+            </div>
+          </div>
+
+          <div class="place_item">
+            <img src="images\06_paradise_road.jpg" alt="6">
+            <div class="place_title">
+              Paradise Road
+            </div>
+            <div class="place_text">
+              Paradise Road is a charming little shop that Udayshanth Fernando
+                opened in 1987. It sells high-quality contemporary clothes, the
+                most of which is made in the area.
+            </div>
+          </div>
+
+          <div class="place_item">
+            <img src="images\07_beddagana_wetland_park.webp" alt="7">
+            <div class="place_title">
+              Beddagana Wetland Park
+            </div>
+            <div class="place_text">
+              A very recent addition to the list of well-known locations in
+                Colombo is Beddagana Wetland Park. In addition to improving the quality of life for the locals,
+                the Sri Lankan government built it to safeguard the area from flooding.
+            </div>
+          </div>
+
+          <div class="place_item">
+            <img src="images\08_old_dutch_hospital.jpg" alt="8">
+            <div class="place_title">
+              Old Dutch Hospital
+            </div>
+            <div class="place_text">
+              The Old Dutch Hospital, which dates back to the 17th century, is
+                one of Colombo's oldest and best-preserved structures.
+                It was constructed with the goal of provide medical assistance to
+                Dutch East India Company employees.
+            </div>
+          </div>
+
+          <div class="place_item">
+            <img src="images\09_arugam_bay_beach.jpg" alt="9">
+            <div class="place_title">
+              Arugam Bay Beach
+            </div>
+            <div class="place_text">
+              Arugam Bay Beach is the spot to go if you want to take a revitalising
+                diversion away from the city and into the wilderness.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <p>Site Designed By: <a href="about.html">Aruth Gardiye</a></p>
+      </div>
+    </div>
+  </body>
+</html>
